@@ -7,7 +7,10 @@
 
       <ul clas="list-group">
         @foreach ($card->notes as $note)
-          <li class="list-group-item">{{ $note->body }}</li>
+          <li class="list-group-item">
+            <a href="/notes/{{ $note->id }}/edit">{{ $note->body }}</a>
+            <a href=# style="float:right">{{ $note->user->username }}</a>
+          </li>
         @endforeach
       </ul>
       <hr>
