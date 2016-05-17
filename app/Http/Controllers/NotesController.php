@@ -32,10 +32,30 @@ class NotesController extends Controller
       // $card->notes()->create($request->all());
 
       // ------ 5th way
-      $card->addNote(
-        new Note($request->all())
-      );
+      // $card->addNote(
+      //   new Note($request->all())
+      // );
+
+      $this->validate($request, [
+        'body' => 'required'
+      ]);
+
+      $note = new Note($request->all());
+      $note->user_id = 1;
+
+      $card->addNote($note);
 
       return back();
     }
+
+    public function edit(Note $note){
+      return view('notes/edit', compact('note'));
+    }
+
+    public function update(Request $request, Note $note){
+      $note->update($request->all());
+
+      return redirect()->action('CardsController@show', [$note->card_id]);
+    }
+
 }

@@ -20,12 +20,13 @@ class CardsController extends Controller
   }
 
   public function show(Card $card){
-
-
     // $cards = DB::table('cards')->get();
 
     // $card = Card::find($id);
-    
+
+    // eager load, saves DB from getting many queries, this will get all the data from notes and user
+    $card->load('notes.user');
+
     return view('cards/show', compact('card'));
   }
 }
